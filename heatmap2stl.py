@@ -1,10 +1,5 @@
 import json
-import pandas
-import numpy
-from stl import mesh
 import copy
-#from itertools import enumerate
-
 
 '''
 Sample data structure of STL
@@ -183,19 +178,34 @@ class STL(object):
         tmp = 'solid ascii\n%s\nendsolid' % str(self.triangle_list)
         return tmp
 
+
+def heatmap2stl(data, 
+        start_x, end_x, start_y, end_y, 
+        substrate_height,
+        gap_width,
+        scale_x, scale_y, scale_z,
+        ):
+    tl = TriangleList()
+    for (i, row) in enumerate(data[start_x:end_x]):
+        for (j, cell) in enumerate(row[start_y:end_y]):
+            b = Block()
+            b.scale(1, 1, cell)
+            b.translate(gap_width + i * (1 + gap_width * 2), 
+                    gap_width + j * (1 + gap_width * 2), 0)
+            tl.append(b)
+
+    tl.translate(0, 0, substrate_height)
+    tl.append(Block().scale(
+        (end_x - start_x) * (1 + gap_width * 2), 
+        (end_y - start_y) * (1 + gap_width * 2), 
+        substrate_height))
+
+    return STL(tl.scale(scale_x, scale_y, scale_z))
+
 data = json.load(open('mv-relation.json'))
-df_data=pandas.DataFrame(data)
-
-data = data[0:70]
-tl = TriangleList()
-for (i, row) in enumerate(data[7:14]):
-    for (j, cell) in enumerate(row[7:14]):
-        b = Block()
-        b.scale(1, 1, cell)
-        b.translate(0.1 + i * 1.2, 0.1 + j * 1.2, 0)
-        tl.append(b)
-
-tl.translate(0, 0, 0.1)
-tl.append(Block().scale(7 * 1.2, 7 * 1.2, 0.1))
-
-print STL(tl.scale(5, 5, 20))
+stl = heatmap2stl(data, 
+        0, 14, 0, 14,
+        0.1, 
+        0.1,
+        5, 5, 20)
+print stl
