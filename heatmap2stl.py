@@ -202,10 +202,12 @@ def heatmap2stl(data,
 
     return STL(tl.scale(scale_x, scale_y, scale_z))
 
-data = json.load(open('mv-relation.json'))
-stl = heatmap2stl(data, 
-        0, 14, 0, 14,
-        0.1, 
-        0.1,
-        5, 5, 20)
-print stl
+
+if __name__ == '__main__':
+    data = json.load(open('mv-relation.json'))
+    stl = heatmap2stl(data, 
+            0, 14, 0, 14,
+            0.1, 
+            0.1,
+            5, 5, 20)
+    print stl
