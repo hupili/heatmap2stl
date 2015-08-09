@@ -1,5 +1,11 @@
 import json
 import copy
+import docopt
+
+DOC = '''
+Usage:
+    heatmap2py <fn_data> <start_x> <end_x> <start_y> <end_y> <substrate_height> <gap_width> <scale_x> <scale_y> <scale_z>
+'''
 
 '''
 Sample data structure of STL
@@ -186,8 +192,8 @@ def heatmap2stl(data,
         scale_x, scale_y, scale_z,
         ):
     tl = TriangleList()
-    for (i, row) in enumerate(data[start_x:end_x]):
-        for (j, cell) in enumerate(row[start_y:end_y]):
+    for (i, row) in enumerate(data[slice(start_x, end_x)]):
+        for (j, cell) in enumerate(row[slice(start_y, end_y)]):
             b = Block()
             b.scale(1, 1, cell)
             b.translate(gap_width + i * (1 + gap_width * 2), 
@@ -204,10 +210,23 @@ def heatmap2stl(data,
 
 
 if __name__ == '__main__':
-    data = json.load(open('mv-relation.json'))
+    #data = json.load(open('mv-relation.json'))
+    #stl = heatmap2stl(data, 
+    #        0, 14, 0, 14,
+    #        0.1, 
+    #        0.1,
+    #        5, 5, 20)
+    #print stl
+    args = docopt.docopt(DOC)
+    data = json.load(open(args['<fn_data>']))
     stl = heatmap2stl(data, 
-            0, 14, 0, 14,
-            0.1, 
-            0.1,
-            5, 5, 20)
+            int(args['<start_x>']), 
+            int(args['<end_x>']), 
+            int(args['<start_y>']), 
+            int(args['<end_y>']), 
+            float(args['<substrate_height>']), 
+            float(args['<gap_width>']), 
+            float(args['<scale_x>']), 
+            float(args['<scale_y>']), 
+            float(args['<scale_z>']))
     print stl
