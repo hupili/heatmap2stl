@@ -150,20 +150,6 @@ class Square(TriangleList):
                     ]
                 )
 
-    #def scale(self, ratio):
-    #    '''
-    #    Only works with x-, y-, or z- normal vectors.
-    #    i.e.
-    #    [0, 0, 1]
-    #    [0, 1, 0]
-    #    [1, 0, 0]
-    #    '''
-    #    for i in range(3):
-    #        if not self.normal[i]:
-    #            for v in self.vertices:
-    #                v[i] *= ratio
-    #    return self
-
 
 class Block(TriangleList):
     def __init__(self, *args , **kwargs):
