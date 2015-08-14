@@ -24,7 +24,7 @@ $exe mv-relation.json 00 25 50 70 $sh $gw $sx $sy $sz > stl/block-2-0.stl
 $exe mv-relation.json 25 50 50 70 $sh $gw $sx $sy $sz > stl/block-2-1.stl
 $exe mv-relation.json 50 70 50 70 $sh $gw $sx $sy $sz > stl/block-2-2.stl
 
-$exe mv-relation.json 0 0 70 70 $sh $gw $sx $sy $sz > stl/block-full.stl
+$exe mv-relation.json 0 70 0 70 $sh $gw $sx $sy $sz > stl/block-full.stl
 
 #python heatmap2stl.py mv-relation.json 00 22 00 22 0.1 0.2 5 5 10 > stl/block-0-0.stl
 #python heatmap2stl.py mv-relation.json 25 50 00 25 0.1 0.2 5 5 10 > stl/block-0-1.stl
