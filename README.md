@@ -7,3 +7,4 @@ for 3D printing
 ## About Sample
 
 This is the heatmap of Hong Kong Legislative Council's voting records in the period of 2012 - 2015.
+See [Legco @ Initium Lab](http://legco.initiumlab.com/) page for more.
